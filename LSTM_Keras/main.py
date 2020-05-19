@@ -9,6 +9,7 @@ Might needed pips:
     This is for the modelling itself
     pip install music21
     pip install np_utils
+    pip install tensorflow==2.1
     
     To speed up the model, i used my GPU
     chronologically:
@@ -58,6 +59,7 @@ for file in p.iterdir():
     for element in notes_to_parse:
         if isinstance(element, note.Note):
             notes.append(str(element.pitch))
+        # encode each note with a dot, so encoding in the end is easier
         elif isinstance(element, chord.Chord):
             notes.append('.'.join(str(n) for n in element.normalOrder))
             
@@ -65,7 +67,7 @@ for file in p.iterdir():
 #%% Data preparation 
 # Convert categorical to numerical data
 
-sequence_length = 100
+sequence_length = 30
 
 # missing in tutorial!!!
 # get number of unique notes, done with the set-trick
@@ -139,7 +141,7 @@ model.compile(loss='categorical_crossentropy', optimizer='rmsprop')
 
 # explain checkpoints: saving to a specific file, to be able to stop training
 # without loosing the weights of the previous runs
-filepath = "LSTM_Keras/weights.hdf5" 
+filepath = "ANN-ZHAW/LSTM_Keras/weights.hdf5" 
 checkpoint = ModelCheckpoint(
     filepath, monitor='loss', 
     verbose=0,        
