@@ -9,7 +9,7 @@ Might needed pips:
     This is for the modelling itself
     pip install music21
     pip install np_utils
-    pip install tensorflow==2.1
+    pip install tensorflow
     
     To speed up the model, i used my GPU
     chronologically:
@@ -67,7 +67,7 @@ for file in p.iterdir():
 #%% Data preparation 
 # Convert categorical to numerical data
 
-sequence_length = 30
+sequence_length = 34
 
 # missing in tutorial!!!
 # get number of unique notes, done with the set-trick
