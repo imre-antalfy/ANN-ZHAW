@@ -10,6 +10,7 @@ Might needed pips:
     pip install music21
     pip install np_utils
     pip install tensorflow==2.1
+    pip install keras
     
     To speed up the model, i used my GPU
     chronologically:
@@ -41,7 +42,7 @@ from keras.callbacks import ModelCheckpoint
 
 notes = []
 
-p = pathlib.Path("LSTM_Keras/midi_songs")
+p = pathlib.Path("/Users/reys/Desktop/ACLS_Master/Neural Networks and Deep Learning/Tensorflow_ANN/Project/LSTM_Keras/midi_songs")
 for file in p.iterdir(): 
     
     # loading each file into a Music21 stream object
@@ -141,7 +142,7 @@ model.compile(loss='categorical_crossentropy', optimizer='rmsprop')
 
 # explain checkpoints: saving to a specific file, to be able to stop training
 # without loosing the weights of the previous runs
-filepath = "ANN-ZHAW/LSTM_Keras/weights.hdf5" 
+filepath = "/Users/reys/Desktop/ACLS_Master/Neural Networks and Deep Learning/Tensorflow_ANN/Project/LSTM_Keras/weights.hdf5"
 checkpoint = ModelCheckpoint(
     filepath, monitor='loss', 
     verbose=0,        
