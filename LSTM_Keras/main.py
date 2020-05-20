@@ -103,7 +103,7 @@ network_input = network_input / float(n_vocab)
 # one-hot encode the output !!! why? define
 network_output = to_categorical(network_output)
 
-#%% Model definition, 4 layers
+# Model definition, 4 layers
 """
 LSTM layers is a Recurrent Neural Net layer that takes a sequence as an input 
 and can return either sequences (return_sequences=True) or a matrix.

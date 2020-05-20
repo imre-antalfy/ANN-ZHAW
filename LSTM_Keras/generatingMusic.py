@@ -1,3 +1,22 @@
+# import/dependencies
+from music21 import converter, instrument, note, chord
+import pathlib
+import numpy as np
+
+# keras imports
+from keras.utils.np_utils import to_categorical
+from keras.models import Sequential
+from keras.layers import Dense
+from keras.layers import Dropout
+from keras.layers import LSTM
+from keras.layers import Activation
+from keras.layers import BatchNormalization as BatchNorm
+from keras.utils import np_utils
+from keras.callbacks import ModelCheckpoint
+
+# chamer das eso mache? sust chund: NameError: name 'network_input' is not defined
+from main import network_input
+
 model = Sequential()
 model.add(LSTM(
     512,
