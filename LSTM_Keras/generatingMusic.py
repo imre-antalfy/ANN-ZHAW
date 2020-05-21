@@ -4,18 +4,17 @@ import pathlib
 import numpy as np
 
 # keras imports
-from keras.utils.np_utils import to_categorical
+import pickle
+import numpy
+from music21 import instrument, note, stream, chord
 from keras.models import Sequential
 from keras.layers import Dense
 from keras.layers import Dropout
 from keras.layers import LSTM
-from keras.layers import Activation
 from keras.layers import BatchNormalization as BatchNorm
-from keras.utils import np_utils
-from keras.callbacks import ModelCheckpoint
+from keras.layers import Activation
 
 # chamer das eso mache? sust chund: NameError: name 'network_input' is not defined
-from main import network_input
 
 model = Sequential()
 model.add(LSTM(
@@ -35,21 +34,29 @@ model.compile(loss='categorical_crossentropy', optimizer='rmsprop')
 # Load the weights to each node
 model.load_weights('weights.hdf5')
 
+""" Generate notes from the neural network based on a sequence of notes """
+# pick a random sequence from the input as a starting point for the prediction
+start = numpy.random.randint(0, len(network_input) - 1)
 
-start = numpy.random.randint(0, len(network_input)-1)
 int_to_note = dict((number, note) for number, note in enumerate(pitchnames))
+
 pattern = network_input[start]
 prediction_output = []
+
 # generate 500 notes
 for note_index in range(500):
     prediction_input = numpy.reshape(pattern, (1, len(pattern), 1))
     prediction_input = prediction_input / float(n_vocab)
+
     prediction = model.predict(prediction_input, verbose=0)
+
     index = numpy.argmax(prediction)
     result = int_to_note[index]
     prediction_output.append(result)
+
     pattern.append(index)
     pattern = pattern[1:len(pattern)]
+
 
 offset = 0
 output_notes = []
